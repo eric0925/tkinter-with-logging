@@ -2,7 +2,7 @@
 import tkinter as tk
 import logging
 import time
-
+import os
 
 class log():   
 
@@ -15,7 +15,7 @@ class log():
         try:
             var = e.get()
 
-            self.handler = logging.FileHandler('log_file/'+'%s'%(time.strftime('%M%S\n', time.localtime(time.time()))),'w','utf-8',delay=0)
+            self.handler = logging.FileHandler('log_file/'+var+'-%s'%(time.strftime('%M%S\n', time.localtime(time.time()))),'w','utf-8',delay=0)
 
             self.logger.setLevel("DEBUG")
             formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s',datefmt='%Y-%m-%d %H:%M:%S')
@@ -27,10 +27,10 @@ class log():
             print(self.logger.handlers[:])
             print("len(logger.handlers[:]):",len(self.logger.handlers[:]))
             print("now time:",time.strftime('%m%d-%H%M%S\n', time.localtime(time.time())))
-            for x in range(10):
-                self.logger.debug("hello")
-        except Exception as e:
-            print(str(e))
+            for x in range(1):
+                self.logger.debug("now time is %s"%time.strftime('%m/%d-%H:%M:%S\n', time.localtime(time.time())))
+        except Exception as error:
+            print(str(error))
             
     def close_log(self):
         if len(self.logger.handlers[:]) <1:
@@ -42,10 +42,16 @@ class log():
                 self.logger.removeHandler(self.logger.handlers[-1])
                 print("all handlers:",self.logger.handlers[:])
                 print("len(logger.handlers[:]):",len(self.logger.handlers[:]))
-            except Exception as e:
-                print(str(e))
+            except Exception as error:
+                print(str(error))
 
 if __name__ == "__main__":
+
+    path = "/home/ericlee/Desktop/tk_log_example/log_file"
+
+    if os.path.exists(path) == 0:
+        os.makedirs(path)
+
     window = tk.Tk()
     window.title('my window')
     window.geometry('400x200')
