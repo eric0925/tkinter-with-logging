@@ -1,0 +1,3 @@
+two way to solve the problem about: create two button, one button is create log and another is close the log. 
+"tk_log_global" is using global to realize the function.
+"tk_log" put the logging in the init to realize the function.  
